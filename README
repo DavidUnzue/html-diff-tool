@@ -1,0 +1,3 @@
+The tool transforms HTML to Markdown, makes a diff of the Markdown, and transforms it back to HTML. As a result, you get a styled html diff.
+
+It uses Elephant418/Markdownify, netj/markdown-diff and https://michelf.ca/projects/php-markdown/classic/
