@@ -1,6 +1,5 @@
 <?php
-include_once('src/Markdownify/Converter.php');
-include_once('src/Markdownify/Parser.php');
+require 'vendor/autoload.php';
 
 // If form was sent, process input
 if (isset($_POST["submit"]) && isset($_POST["input_old_html"]) && isset($_POST["input_new_html"])) {

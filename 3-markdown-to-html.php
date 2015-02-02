@@ -1,5 +1,5 @@
 <?php
-include_once "src/markdown.php";
+require 'vendor/autoload.php';
 
 // If form was sent, process input
 if (isset($_POST["submit"])) {

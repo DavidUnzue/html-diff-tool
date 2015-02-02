@@ -1,0 +1,28 @@
+{
+ 	"name":             "biologis/htmldiff",
+    "description":      "Tool for creating a diff of two HTML Snippets in a visual way.",
+    "keywords":         ["diff", "html"],
+    "homepage":         "http://bio.logis.de",
+    "license":          "MIT",
+    "authors": [
+        {
+            "name":         "David Unzué",
+            "email":        "du@bio.logis.de",
+            "homepage":     "http://bio.logis.de",
+            "role":         "Student-Software Developer"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "4.4.*"
+    },
+    "require": {
+    	"pixel418/markdownify": "2.1.*",
+    	"michelf/php-markdown": "1.4.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "HtmlDiff\\":     "src/",
+            "HtmlDiff\\Tests\\": "tests/"
+        }
+    }
+}
