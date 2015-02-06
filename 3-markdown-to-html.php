@@ -1,10 +1,11 @@
 <?php
-require 'vendor/autoload.php';
+require 'src/HtmlDiff.php';
 
 // If form was sent, process input
 if (isset($_POST["submit"])) {
 	try {
-    	$html_output = Markdown(file_get_contents('changes.md'));
+		$htmlDiff = new HtmlDiff\HtmlDiff;
+    	$html_output = $htmlDiff->markdownToHtml(file_get_contents('changes.md'));
 	} catch (Exception $e) {
 	    echo 'Caught exception: ',  $e->getMessage(), "\n";
 	}

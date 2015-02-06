@@ -1,11 +1,19 @@
 <?php
+require 'src/HtmlDiff.php';
+
 // If form was sent, process input
 if (isset($_POST["submit"])) {
+	$htmlDiff = new HtmlDiff\HtmlDiff;
+
+	$htmlDiff->diffMarkdown('old.md', 'new.md', 'changes.md');
+	
+	/*
 	try {
     	shell_exec('wdiff old.md new.md | ./src/markdown-format-wdiff >changes.md');
 	} catch (Exception $e) {
 	    echo 'Caught exception: ',  $e->getMessage(), "\n";
 	}
+	*/
 	$output = file_get_contents('changes.md');
 
 	$message = 'Markdown file "changes.md" created';

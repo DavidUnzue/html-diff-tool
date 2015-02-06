@@ -1,19 +1,17 @@
 <?php
-require 'vendor/autoload.php';
+require 'src/HtmlDiff.php';
 
 // If form was sent, process input
 if (isset($_POST["submit"]) && isset($_POST["input_old_html"]) && isset($_POST["input_new_html"])) {
-	$converter = new Markdownify\Converter;
+	$htmlDiff = new HtmlDiff\HtmlDiff;
 	
 	// Convert old html to markdown file
-	$input_old = $converter->parseString($_POST['input_old_html']);
-	$file_old = fopen("old.md", "w") or die("Unable to open file!");
-	fwrite($file_old, $input_old);
+	$input_old = $htmlDiff->htmlToMarkdown($_POST['input_old_html']);
+	$htmlDiff->createFile("old.md", $input_old);
 
 	// Convert new html to markdown file
-	$input_new = $converter->parseString($_POST['input_new_html']);
-	$new_file = fopen("new.md", "w") or die("Unable to open file!");
-	fwrite($new_file, $input_new);
+	$input_new = $htmlDiff->htmlToMarkdown($_POST['input_new_html']);
+	$htmlDiff->createFile("new.md", $input_new);
 	
 	$message = 'Markdown files "old.md" and "new.md" created';
 }
