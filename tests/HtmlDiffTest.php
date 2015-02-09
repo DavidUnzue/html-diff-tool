@@ -101,8 +101,8 @@ class HtmlDiffTest extends PHPUnit_Framework_TestCase {
 
 	public function testItShouldConvertMarkdownToHtml()
 	{
-		$inputMarkdown = '**Text**';
-		$outputHtml = '<p><strong>Text</strong></p>';
+		$inputMarkdown = '# Text';
+		$outputHtml = '<h1>Text</h1>';
 		$outputHtml .= "\n";
 		$this->assertEquals($outputHtml, $this->htmlDiff->markdownToHtml($inputMarkdown));
 	}
