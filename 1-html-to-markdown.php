@@ -1,5 +1,5 @@
 <?php
-require 'src/HtmlDiff.php';
+require 'vendor/autoload.php';
 
 // If form was sent, process input
 if (isset($_POST["submit"]) && isset($_POST["input_old_html"]) && isset($_POST["input_new_html"])) {
