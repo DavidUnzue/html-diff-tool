@@ -1,19 +1,17 @@
 <?php
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 // If form was sent, process input
 if (isset($_POST["submit"]) && isset($_POST["input_old_html"]) && isset($_POST["input_new_html"])) {
 	$htmlDiff = new HtmlDiff\HtmlDiff;
 	
-	// Convert old html to markdown file
-	$input_old = $htmlDiff->htmlToMarkdown($_POST['input_old_html']);
-	$htmlDiff->createFile("old.md", $input_old);
-
-	// Convert new html to markdown file
-	$input_new = $htmlDiff->htmlToMarkdown($_POST['input_new_html']);
-	$htmlDiff->createFile("new.md", $input_new);
-	
-	$message = 'Markdown files "old.md" and "new.md" created';
+	if ( $output = $htmlDiff->diff($_POST["input_old_html"], $_POST["input_new_html"]) ) {
+		$message_type = 'success';
+		$message = 'Diff successfully created';
+	} else {
+		$message_type = 'error';
+		$message = 'Could not diff.';
+	}
 }
 
 ?>
@@ -21,10 +19,20 @@ if (isset($_POST["submit"]) && isset($_POST["input_old_html"]) && isset($_POST["
        "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>1-HTML to Markdown</title>
-<link type="text/css" rel="stylesheet" href="src/main.css">
+<title>Demo for HtmlDiff</title>
+<link type="text/css" rel="stylesheet" href="main.css">
 </head>
 <body>
+	<?php echo isset($message) ? '<div class="'.$message_type.'">'.$message.'</div>' : ''; ?>
+	<?php if (isset($output)): ?>
+		<br />
+		<h2>Output</h2>
+		<hr />
+		<div class="output">
+		<?php echo $output; ?>
+		</div>
+	<?php endif; ?>
+	<br />
 	<form method="post">
 		<h2>Old HTML Input</h2>
 		<textarea name="input_old_html" cols="140" rows="20">
@@ -50,11 +58,7 @@ if (isset($_POST["submit"]) && isset($_POST["input_old_html"]) && isset($_POST["
 			</ul>
 		</textarea>
 		<br /><br />
-		<input type="submit" name="submit">
+		<input type="submit" name="submit" value="Run diff !">
 	</form>
-	<br /><br />
-	<?php echo isset($message) ? '<div class="success">'.$message.'</div>' : ''; ?>
-	<br />
-	<p>Next step > <a href="2-diff-markdown.php">Diff obtained Markdown</a></p>
 </body>
 </html>
