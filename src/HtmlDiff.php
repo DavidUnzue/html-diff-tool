@@ -4,10 +4,6 @@
 #
 namespace HtmlDiff;
 
-// Include depedencies from composer
-require 'vendor/autoload.php';
-
-
 class HtmlDiff {
 
 	private $root = ''; // Root directory of class file
