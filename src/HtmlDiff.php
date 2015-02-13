@@ -62,4 +62,22 @@ class HtmlDiff {
 
 		return $outputHtml;
 	}
+
+	// main method
+	public function diff($oldHtml, $newHtml)
+	{	
+		// transforms html input into markdown files
+		$inputOld = $this->htmlToMarkdown($oldHtml);
+		$this->createFile("old.md", $inputOld);
+		$inputNew = $this->htmlToMarkdown($newHtml);
+		$this->createFile("new.md", $inputNew);
+
+		// diffs markdown files to new file
+		$this->diffMarkdown('old.md', 'new.md', 'changes.md');
+
+		// transforms diff markdown back to html
+		$htmlOutput = $this->markdownToHtml(file_get_contents('changes.md'));
+
+		return $htmlOutput;
+	}
 }
