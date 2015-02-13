@@ -1,0 +1,35 @@
+body {
+	padding: 50px 300px;
+}
+pre {
+	background-color: #ddd;
+	padding: 30px 20px;
+	overflow: scroll;
+}
+input[type=submit] {
+	padding: 10px 15px;
+	background: none #5C8FC4;
+	border: 1px solid #284D75;
+	font-size: 14px;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+}
+input[type=submit]:hover {
+	background-color: #7A9EC4;
+	cursor: pointer;
+}
+.success {
+	background-color: #A6E0A7;
+	padding: 20px;
+}
+.error {
+	background-color: #c00;
+	padding: 20px;
+	color: #ffffff;
+}
+.output {
+	background-color: #efefef;
+	border: 1px solid #dedede;
+	padding: 10px;
+}
