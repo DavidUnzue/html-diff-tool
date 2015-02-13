@@ -1,36 +1,32 @@
-HtmlDiff is a PHP Class for transforming HTML into Markdown. With HtmlDiff you can convert a piece of HTML code into Markdown, create a diff-file of two Markdown files, and transforms it back to HTML. As a result, you get a styled html diff.
+HtmlDiff is a PHP Class for showing the differences between two pieces of HTML. HtmlDiff converts each piece of HTML code into Markdown, creates a diff-file of the two Markdown files, and transforms it back to a single HTML output. As a result, you get a styled html diff, showing the differences between the original files in a visual way.
 
-It uses Elephant418/Markdownify, netj/markdown-diff and https://michelf.ca/projects/php-markdown/classic/
+# Requirements/Dependecies
+* https://github.com/Elephant418/Markdownify
+* https://github.com/netj/markdown-diff
+* https://michelf.ca/projects/php-markdown/classic/
+* Wdiff: http://www.gnu.org/software/wdiff/
+
+# Installation
+HtmlDiff uses Composer (http://getcomposer.org/) to manage dependencies. To get started, install composer, then run the command: "composer install". It will download the required libraries automatically under a "vendor" directory.
+
+Additionally, HtmlDiff uses two Scripts (markdown-format-wdiff and markdown-git-changes) which are already included within the "src/" directory, so don´t remove them.
+
+You also need to have wdiff (http://www.gnu.org/software/wdiff/) installed. This can be achieved throw homebrew by running following command in your command line: ```brew install wdiff```
+
 
 # Methods
-
 Method name      | Parameters | What it does
 ---------------- | ---------- | ------------
-htmlToMarkdown() | inputHtml  | Takes a piece of HTML and returns the corresponding transformed Markdown as a string.
-createFile()     | filePath, fileContent | Creates a file with the desired name/path and writes the given content into it.
-diffMarkdown()   | oldFilePath, newFilePath, diffFilePath | Takes two Markdown files and creates a diff-file of them (should be markdown) with the given name/path.
-markdownToHtml() | inputMarkdown | Takes a piece of Markdown and returns the corresponding transformed HTML as a string.
+**diff** | oldHtml, newHtml, *extra* | This is the main method. Makes a diff of two pieces of HTML by running all other methods at once.
+htmlToMarkdown | inputHtml, *extra*  | Takes a piece of HTML and returns the corresponding transformed Markdown as a string.
+createFile     | filePath, fileContent | Creates a file with the desired name/path and writes the given content into it.
+diffMarkdown  | oldFilePath, newFilePath, diffFilePath | Takes two Markdown files and creates a diff-file of them (should be markdown) with the given name/path.
+markdownToHtml | inputMarkdown, *extra* | Takes a piece of Markdown and returns the corresponding transformed HTML as a string.
+\* _extra_ is an optional parameter for parsing using the extra markdown syntax [as defined by @michelf](https://michelf.ca/projects/php-markdown/extra/). If it is set to true, the extra syntax is used, otherwise is it not.
 
-# How to use
-1. First of all, you have to include the PHP class: `require 'src/HtmlDiff.php';`
+# How to use it
+1. First of all, you have to include the PHP class and its dependencies per autoload file from vendor directory: `require 'vendor/autoload.php';`
 2. Create an object of the class to work with, like this: `$htmlDiff = new HtmlDiff\HtmlDiff;`
-3. Now, if you want to compare two different HTML code snippets, take each of them and convert them into Markdown like this:
-	```php
-	// Convert old html to markdown file
-	$input_old = $htmlDiff->htmlToMarkdown($_POST['input_old_html']);
-	$htmlDiff->createFile("old.md", $input_old);
-
-	// Convert new html to markdown file
-	$input_new = $htmlDiff->htmlToMarkdown($_POST['input_new_html']);
-	$htmlDiff->createFile("new.md", $input_new);
-	```
-	As a result you get two Markdown files: old.md and new.md
-4. Then you have to create a new diff-file showing the differences between that two files, we name this new file "changes.md". Note that the new diff-file has to be a Markdown file (.md):
-	```php
-	$htmlDiff->diffMarkdown('old.md', 'new.md', 'changes.md');
-	```
-5. Now you can get the content of the diff-file and transform it into HTML:
-	```php
-	$html_output = $htmlDiff->markdownToHtml(file_get_contents('changes.md'));
-	```
-6. The new HTML code will show the differences of the original files in a styled way and in HTML.
+3. Now, if you want to compare two different pieces of HTML, pass each of them as a parameter to the *diff()* method. Be sure to place the old one first and the new one in the second position: `$htmlDiff->diff($old_html, $new_html);`
+4. If you want to use extra markdown ([see here](https://michelf.ca/projects/php-markdown/extra/)), then you have to add a third parameter set to true, like this: `$htmlDiff->diff($old_html, $new_html, true);`
+5. As a result you get a new styled HTML code showing the differences of the original files in a visual way.
