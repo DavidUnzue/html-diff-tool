@@ -43,9 +43,17 @@ class HtmlDiffTest extends PHPUnit_Framework_TestCase {
 
 	public function testItShouldConvertValidHtmlToMarkdown()
 	{
-		$inputHtml = '<strong>Text</strong>';
-		$outputMarkdown = '**Text**';
+		$inputHtml = '<strong>Bold</strong>';
+		$outputMarkdown = '**Bold**';
 		$this->assertEquals($outputMarkdown, $this->htmlDiff->htmlToMarkdown($inputHtml));
+	}
+
+	public function testItShouldConvertValidHtmlToMarkdownExtra()
+	{
+		$inputHtml = '<h1 id="md">Heading</h1>';
+		$outputMarkdown = '# Heading {#md}';
+		$extraConverter = true;
+		$this->assertEquals($outputMarkdown, $this->htmlDiff->htmlToMarkdown($inputHtml, $extraConverter));
 	}
 
 	public function testItShouldCreateAMarkdownFile()
@@ -99,10 +107,19 @@ class HtmlDiffTest extends PHPUnit_Framework_TestCase {
 
 	public function testItShouldConvertMarkdownToHtml()
 	{
-		$inputMarkdown = '# Text';
-		$outputHtml = '<h1>Text</h1>';
+		$inputMarkdown = '# Heading';
+		$outputHtml = '<h1>Heading</h1>';
 		$outputHtml .= "\n";
 		$this->assertEquals($outputHtml, $this->htmlDiff->markdownToHtml($inputMarkdown));
+	}
+
+	public function testItShouldConvertExtraMarkdownToHtml()
+	{
+		$inputMarkdown = '# Heading {#md}';
+		$outputHtml = '<h1 id="md">Heading</h1>';
+		$outputHtml .= "\n";
+		$extraConverter = true;
+		$this->assertEquals($outputHtml, $this->htmlDiff->markdownToHtml($inputMarkdown, $extraConverter));
 	}
 
 	public function testItShouldRunTheCompleteWorkflow()

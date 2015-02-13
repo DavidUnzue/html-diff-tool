@@ -13,10 +13,17 @@ class HtmlDiff {
 		$this->root = dirname(__FILE__);
 	}
 
-	public function htmlToMarkdown($inputHtml)
-	{
-		$converter = new \Markdownify\Converter;
-	
+	public function htmlToMarkdown($inputHtml, $extra = false)
+	{	
+		// check which converter to use
+		$converter = null;
+
+		if (isset($extra) && $extra == true) {
+			$converter = new \Markdownify\ConverterExtra;
+		} else {
+			$converter = new \Markdownify\Converter;
+		}
+		
 		// Convert html to markdown
 		$outputMarkdown = $converter->parseString($inputHtml);
 
@@ -53,9 +60,16 @@ class HtmlDiff {
 		}
 	}
 
-	public function markdownToHtml($inputMarkdown)
+	public function markdownToHtml($inputMarkdown, $extra = false)
 	{
-		$converter = new \Michelf\Markdown;
+		// check which converter to use
+		$converter = null;
+
+		if (isset($extra) && $extra == true) {
+			$converter = new \Michelf\MarkdownExtra;
+		} else {
+			$converter = new \Michelf\Markdown;
+		}
 
 		// Convert markdown to html
 		$outputHtml = $converter->transform($inputMarkdown);
@@ -64,19 +78,19 @@ class HtmlDiff {
 	}
 
 	// main method
-	public function diff($oldHtml, $newHtml)
+	public function diff($oldHtml, $newHtml, $extra = false)
 	{	
 		// transforms html input into markdown files
-		$inputOld = $this->htmlToMarkdown($oldHtml);
+		$inputOld = $this->htmlToMarkdown($oldHtml, $extra);
 		$this->createFile("old.md", $inputOld);
-		$inputNew = $this->htmlToMarkdown($newHtml);
+		$inputNew = $this->htmlToMarkdown($newHtml, $extra);
 		$this->createFile("new.md", $inputNew);
 
 		// diffs markdown files to new file
 		$this->diffMarkdown('old.md', 'new.md', 'changes.md');
 
 		// transforms diff markdown back to html
-		$htmlOutput = $this->markdownToHtml(file_get_contents('changes.md'));
+		$htmlOutput = $this->markdownToHtml(file_get_contents('changes.md'), $extra);
 
 		return $htmlOutput;
 	}
