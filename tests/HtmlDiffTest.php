@@ -67,8 +67,6 @@ class HtmlDiffTest extends PHPUnit_Framework_TestCase {
 
 	public function testItShouldCreateADiffFile()
 	{
-		vfsStreamWrapper::register();
-        vfsStreamWrapper::setRoot(new vfsStreamDirectory('root'));
 
         $oldFilePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'old.md';
         $oldFileContent = 'Old Text';
@@ -105,6 +103,27 @@ class HtmlDiffTest extends PHPUnit_Framework_TestCase {
 		$outputHtml = '<h1>Text</h1>';
 		$outputHtml .= "\n";
 		$this->assertEquals($outputHtml, $this->htmlDiff->markdownToHtml($inputMarkdown));
+	}
+
+	public function testItShouldRunTheCompleteWorkflow()
+	{
+		$oldHtml = '<h1>Old text</h1>';
+		$newHtml = '<h1>New text</h1>';
+
+		$outputHtml = '<h1><del class="del">Old</del> <ins class="ins">New</ins> text</h1>';
+		$outputHtml .= "\n\n";
+		$outputHtml .= '<style>';
+		$outputHtml .= "\n";
+		$outputHtml .= '    .del,.ins{ display: inline-block; margin-left: 0.5ex; }';
+		$outputHtml .= "\n";
+		$outputHtml .= '    .del     { background-color: #fcc; }';
+		$outputHtml .= "\n";
+		$outputHtml .= '         .ins{ background-color: #cfc; }';
+		$outputHtml .= "\n";
+		$outputHtml .= '</style>';
+		$outputHtml .= "\n";
+
+		$this->assertEquals($outputHtml, $this->htmlDiff->diff($oldHtml, $newHtml));
 	}
 
 }
