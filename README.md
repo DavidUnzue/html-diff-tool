@@ -1,6 +1,6 @@
 # Note
 Due to some unexpected results from wdiff output, its not recommended to use HtmlDiff anymore.
-For the purpouse of generating a Diff of HTML Snippets I recommend using [@mkalkbrenner´s fork of php-htmldiff](https://github.com/mkalkbrenner/php-htmldiff).
+For the purpose of generating a Diff of HTML Snippets I recommend using [@mkalkbrenner's fork of php-htmldiff](https://github.com/mkalkbrenner/php-htmldiff).
 
 **I'm keeping the repository here as a reference for future coding projects**
 
@@ -10,7 +10,7 @@ For the purpouse of generating a Diff of HTML Snippets I recommend using [@mkalk
 HtmlDiff is a PHP Class for showing the differences between two pieces of HTML. HtmlDiff converts each piece of HTML code into Markdown, creates a diff-file of the two Markdown files, and transforms it back to a single HTML output. As a result, you get a styled html diff, showing the differences between the original files in a visual way.
 
 # Why convert to Markdown?
-The idea behind HtmlDiff was that Markdown syntax is easier to diff then HTML, because Markdown is just plaintext and much simpler. Thus, although HtmlDiff has the ability to proccess extra markdown, it is not suposed to be used with complex HTML.
+The idea behind HtmlDiff was that Markdown syntax is easier to diff then HTML, because Markdown is just plain text and much simpler. Thus, although HtmlDiff has the ability to process extra markdown, it is not supposed to be used with complex HTML.
 
 # Requirements/Dependecies
 * https://github.com/Elephant418/Markdownify
@@ -21,7 +21,7 @@ The idea behind HtmlDiff was that Markdown syntax is easier to diff then HTML, b
 # Installation
 HtmlDiff uses Composer (http://getcomposer.org/) to manage dependencies. To get started, install composer, then run the command: "composer install". It will download the required libraries automatically under a "vendor" directory.
 
-Additionally, HtmlDiff uses two Scripts (markdown-format-wdiff and markdown-git-changes) which are already included within the "src/" directory, so don´t remove them.
+Additionally, HtmlDiff uses two Scripts (markdown-format-wdiff and markdown-git-changes) which are already included within the "src/" directory, so don't remove them.
 
 You also need to have wdiff (http://www.gnu.org/software/wdiff/) installed. This can be achieved throw homebrew by running following command in your command line: ```brew install wdiff```
 
