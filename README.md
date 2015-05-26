@@ -1,5 +1,5 @@
-# Note
-Due to some unexpected results from wdiff output, its not recommended to use HtmlDiff anymore.
+# Deprecation notice
+This project will not be further maintained. Furthermore, due to some incorrect results of comparing markdownified HTML with wdiff, its not recommended to use HtmlDiff anymore.
 For the purpose of generating a Diff of HTML Snippets I recommend using [@mkalkbrenner's fork of php-htmldiff](https://github.com/mkalkbrenner/php-htmldiff).
 
 **I'm keeping the repository here as a reference for future coding projects**
